@@ -3,6 +3,7 @@ session_start();
 $user = $_POST["username"];
 $passwd = $_POST["password"];
 
+// Remove HTML tags from string
 $user = filter_var($user, FILTER_SANITIZE_STRING);
 $passwd= filter_var($passwd, FILTER_SANITIZE_STRING);
 
@@ -15,50 +16,50 @@ $replace_chars = array(
 );
 
 for( $i=0 ; $i < strlen($user) ; $i++ ) {
-  $sane_char = $source_char = $str[$i];
-  if ( in_array( $source_char, $forbidden_chars ) ) {
-    $sane_char = "_";
-    $saneUsr .= $sane_char;
+  $sane_charusr = $source_charusr = $user[$i];
+  if ( in_array( $source_charusr, $forbidden_chars ) ) {
+    $sane_charusr = "_";
+    $saneUsr .= $sane_charusr;
     continue;
   }
-  $pos = strpos( $replace_chars[0], $source_char);
+  $pos = strpos( $replace_charsusr[0], $source_charusr);
   if ( $pos !== false ) {
-    $sane_char = $replace_chars[1][$pos];
-    $saneUsr .= $sane_char;
+    $sane_charusr = $replace_charsusr[1][$pos];
+    $saneUsr .= $sane_charusr;
     continue;
   }
-  if ( ord($source_char) < 32 || ord($source_char) > 128 ) {
+  if ( ord($source_charusr) < 32 || ord($source_charusr) > 128 ) {
     // Todos los caracteres codificados por debajo de 32 o encima de 128 son especiales
-    $sane_char = "_";
-    $saneUsr .= $sane_char;
+    $sane_charusr = "_";
+    $saneUsr .= $sane_charusr;
     continue;
   }
   // Si ha pasado todos los controles, aceptamos el carácter
-  $saneUsr .= $sane_char;
+  $saneUsr .= $sane_charusr;
 }
 
 for( $i=0 ; $i < strlen($passwd) ; $i++ ) {
-	$sane_char = $source_char = $str[$i];
-	if ( in_array( $source_char, $forbidden_chars ) ) {
-	  $sane_char = "_";
-	  $sanePwd .= $sane_char;
-	  continue;
-	}
-	$pos = strpos( $replace_chars[0], $source_char);
-	if ( $pos !== false ) {
-	  $sane_char = $replace_chars[1][$pos];
-	  $sanePwd .= $sane_char;
-	  continue;
-	}
-	if ( ord($source_char) < 32 || ord($source_char) > 128 ) {
-	  // Todos los caracteres codificados por debajo de 32 o encima de 128 son especiales
-	  $sane_char = "_";
-	  $sanePwd .= $sane_char;
-	  continue;
-	}
-	// Si ha pasado todos los controles, aceptamos el carácter
-	$sanePwd .= $sane_char;
+  $sane_charpwd = $source_charpwd = $passwd[$i];
+  if ( in_array( $source_charpwd, $forbidden_chars ) ) {
+    $sane_charpwd = "_";
+    $sanePwd .= $sane_charpwd;
+    continue;
   }
+  $pos = strpos( $replace_charspwd[0], $source_charpwd);
+  if ( $pos !== false ) {
+    $sane_charpwd = $replace_charspwd[1][$pos];
+    $sanePwd .= $sane_charpwd;
+    continue;
+  }
+  if ( ord($source_charpwd) < 32 || ord($source_charpwd) > 128 ) {
+    // Todos los caracteres codificados por debajo de 32 o encima de 128 son especiales
+    $sane_charpwd = "_";
+    $saneUsr .= $sane_charpwd;
+    continue;
+  }
+  // Si ha pasado todos los controles, aceptamos el carácter
+  $sanePwd .= $sane_charpwd;
+}
 
 
 // if ($user == "Kathe" && $passwd == "quesito") {
