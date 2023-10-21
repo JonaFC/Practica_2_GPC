@@ -1,9 +1,9 @@
 <?php
-$host = 'localhost';
+$host = '34.83.248.154';
 $port = '5432';
-$dbname = 'postgres';
-$user = 'deus';
-$psswd = 'knEj04/10';
+$dbname = 'app-web-Proyecto1';
+$user = 'jona';
+$psswd = 'RedesDeComputadoraP1!@';
 
 try {
 	$conn = "pgsql:host=" . $host . ";port=" . $port . ";dbname=$dbname";
